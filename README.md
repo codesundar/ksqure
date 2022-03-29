@@ -1,5 +1,5 @@
-# Task 1
+# Task 2
 
 ## Screenshot
 
-![01_hello_world](screenshots/01_hello_world.png)
+![02_display_image_locally](screenshots/02_display_image_locally.png)

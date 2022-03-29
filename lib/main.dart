@@ -5,7 +5,7 @@ void main() {
     MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text("Hello World"),
+          child: Image.asset("assets/images/database.png"),
         ),
       ),
     ),
