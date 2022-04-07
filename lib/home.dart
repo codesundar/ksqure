@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_name/custom-widgets/custom-drawer.dart';
 import 'package:project_name/custom-widgets/product-card.dart';
 import 'package:project_name/screens/product-detail.dart';
 
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        drawer: CustomDrawer(),
         body: Column(
           children: [
             Container(

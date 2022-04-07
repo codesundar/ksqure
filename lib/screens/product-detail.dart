@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_name/custom-widgets/custom-drawer.dart';
+import 'package:project_name/screens/about.dart';
+import 'package:project_name/screens/contact.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final String ptitle;
@@ -19,7 +23,15 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      drawer: CustomDrawer(),
+      appBar: AppBar(
+        title: Text("App Name"),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.star)),
+        ],
+      ),
       body: Column(children: [
         Container(
           height: 300,

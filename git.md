@@ -1,0 +1,1 @@
+git branch branch_name && git checkout branch_name && git add . && git commit -m "branch_name" && git push --set-upstream origin branch_name
