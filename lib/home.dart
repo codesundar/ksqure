@@ -18,11 +18,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
   var count = 0;
   var _isOn = false;
+
+  List _products = [
+    {
+      "imageURL": "assets/images/1.jpeg",
+      "title": "iPhone",
+      "price": "400",
+      "timesAgo": "20 mins ago"
+    },
+    {
+      "imageURL": "assets/images/2.jpeg",
+      "title": "Samsung",
+      "price": "4000",
+      "timesAgo": "15 mins ago"
+    },
+    {
+      "imageURL": "assets/images/3.jpeg",
+      "title": "Moto",
+      "price": "4000",
+      "timesAgo": "50 mins ago"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         drawer: CustomDrawer(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
+        ),
         body: Column(
           children: [
             Container(
@@ -75,27 +101,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               child: Container(
-                child: ListView(
-                  children: [
-                    ProductCard(
-                      title: "iPhone",
-                      price: 400,
-                      timesAgo: "5 mins ago",
-                      imageURL: "assets/images/1.jpeg",
-                    ),
-                    ProductCard(
-                      title: "Samsung",
-                      price: 500,
-                      timesAgo: "15 mins ago",
-                      imageURL: "assets/images/2.jpeg",
-                    ),
-                    ProductCard(
-                      title: "Android",
-                      price: 4000,
-                      timesAgo: "50 mins ago",
-                      imageURL: "assets/images/3.jpeg",
-                    ),
-                  ],
+                child: ListView.builder(
+                  itemCount: _products.length,
+                  itemBuilder: (BuildContext bc, index) {
+                    return ProductCard(
+                      title: _products[index]["title"],
+                      price: double.parse(_products[index]["price"]),
+                      timesAgo: _products[index]["timesAgo"],
+                      imageURL: _products[index]["imageURL"],
+                    );
+                  },
                 ),
               ),
             ),
