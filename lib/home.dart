@@ -101,7 +101,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
               child: Container(
-                child: ListView.builder(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 4
+                  ),
                   itemCount: _products.length,
                   itemBuilder: (BuildContext bc, index) {
                     return ProductCard(
