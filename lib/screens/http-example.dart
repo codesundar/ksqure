@@ -30,6 +30,18 @@ class _HttpExampleState extends State<HttpExample> {
     });
   }
 
+  makeRequest1() async {
+    try {
+      var resp = await http
+          .get(Uri.parse("https://jsonplaceholder.typicode.com/posts"));
+      setState(() {
+        _posts = json.decode(resp.body);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
