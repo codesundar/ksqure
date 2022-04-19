@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_name/screens/profile.dart';
 import 'dart:convert';
 
 import 'package:project_name/util/constants.dart';
@@ -14,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _emailCtrl = TextEditingController();
   TextEditingController _passwordCtrl = TextEditingController();
+  final box = GetStorage();
 
   login() async {
     print(_emailCtrl.text);
@@ -27,6 +31,12 @@ class _LoginScreenState extends State<LoginScreen> {
       }),
     );
     print(json.decode(resp.body));
+    var tmp = json.decode(resp.body);
+    if (tmp["status"] == true) {
+      print(tmp["data"]["token"]);
+      box.write('token', tmp["data"]["token"]);
+      Get.offAll(ProfileScreen());
+    }
   }
 
   @override
