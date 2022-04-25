@@ -6,6 +6,7 @@ import 'package:project_name/screens/http-example.dart';
 import 'package:project_name/screens/login.dart';
 import 'package:project_name/screens/profile.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:project_name/screens/url-launcher-example.dart';
 
 void main() async{
   await GetStorage.init();
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: LoginScreen(),
+      home: URLLauncherExample(),
     );
   }
 }

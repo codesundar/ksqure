@@ -35,6 +35,14 @@ class _LoginScreenState extends State<LoginScreen> {
     if (tmp["status"] == true) {
       print(tmp["data"]["token"]);
       box.write('token', tmp["data"]["token"]);
+
+      // local storage example
+
+      box.write('name', tmp["data"]["user"]["name"]);
+      box.write('email', tmp["data"]["user"]["email"]);
+      box.write('mobile', tmp["data"]["user"]["mobile"]);
+      box.write('imgURL', tmp["data"]["user"]["imgURL"]);
+      //
       Get.offAll(ProfileScreen());
     }
   }

@@ -34,13 +34,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         "name": _nameCtrl.text,
         "email": _emailCtrl.text,
         "mobile": _mobileCtrl.text,
-        "imgURL": "http://site.com/image.png"
+        "imgURL": _imageURL
       }),
     );
     print(json.decode(resp.body));
   }
 
-  readUserData() async{
+  readUserData() async {
     var token = box.read('token');
     var resp = await http.post(
       Uri.parse(Constants().apiURL + '/user/profile'),
@@ -50,25 +50,67 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
     );
     var tmp = json.decode(resp.body);
+
     print(tmp);
-    if(tmp['status'] == true){
+    if (tmp['status'] == true) {
       _nameCtrl.text = tmp['data']['name'];
       _emailCtrl.text = tmp['data']['email'];
       _mobileCtrl.text = tmp['data']['mobile'];
     }
   }
 
+  readUserDataFromStorage() {
+    setState(() {
+      _nameCtrl.text = box.read('name');
+      _emailCtrl.text = box.read('email');
+      _mobileCtrl.text = box.read('mobile');
+      _imageURL = box.read('imgURL');
+    });
+  }
+
   pickImage() async {
-    var image = await ImagePicker().pickImage(source: ImageSource.camera);
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image != null) {
       print(image.path);
+
+      // upload image
+      var request = http.MultipartRequest(
+          "POST", Uri.parse(Constants().apiURL + '/upload/profile'));
+      request.files
+          .add(await http.MultipartFile.fromPath('avatar', image.path));
+      var res = await request.send();
+      var respData = await res.stream.toBytes();
+      var respStr = String.fromCharCodes(respData);
+      var jsonObj = json.decode(respStr);
+      print(jsonObj["data"]["path"]);
       setState(() {
-        _imageURL = image.path;
+        _imageURL = jsonObj["data"]["path"];
       });
     } else {
       print("No image picked");
     }
   }
+
+  // pickMulipeImage() async {
+  //   var images = await ImagePicker().pickMultiImage();
+  //   if (images!.isNotEmpty) {
+  //     // upload image
+  //     var request = http.MultipartRequest(
+  //         "POST", Uri.parse(Constants().apiURL + '/upload/photos'));
+  //     images.forEach((image) async {
+  //       request.files
+  //           .add(await http.MultipartFile.fromPath('photos', image.path));
+  //     });
+
+  //     var res = await request.send();
+  //     var respData = await res.stream.toBytes();
+  //     var respStr = String.fromCharCodes(respData);
+  //     var jsonObj = json.decode(respStr);
+  //     print(jsonObj["data"]["path"]);
+  //   } else {
+  //     print("No image picked");
+  //   }
+  // }
 
   // writeToken() {
   //   box.write('token', 'abcd');
@@ -83,7 +125,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    readUserData();
+    // readUserData();
+    readUserDataFromStorage();
   }
 
   @override
@@ -111,7 +154,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
               child: Container(
                 child: _imageURL != ""
-                    ? Image.file(File(_imageURL), height: 100, width: 100)
+                    ? Image.network(_imageURL, height: 100, width: 100)
                     : Image.asset("assets/images/food.png",
                         height: 100, width: 100),
               ),
