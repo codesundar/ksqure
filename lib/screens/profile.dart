@@ -91,26 +91,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  // pickMulipeImage() async {
-  //   var images = await ImagePicker().pickMultiImage();
-  //   if (images!.isNotEmpty) {
-  //     // upload image
-  //     var request = http.MultipartRequest(
-  //         "POST", Uri.parse(Constants().apiURL + '/upload/photos'));
-  //     images.forEach((image) async {
-  //       request.files
-  //           .add(await http.MultipartFile.fromPath('photos', image.path));
-  //     });
+  pickMulipeImage() async {
+    var images = await ImagePicker().pickMultiImage();
+    if (images!.isNotEmpty) {
+      // upload image
+      var request = http.MultipartRequest(
+          "POST", Uri.parse(Constants().apiURL + '/upload/photos'));
+      images.forEach((image) async {
+        request.files
+            .add(await http.MultipartFile.fromPath('photos', image.path));
+      });
 
-  //     var res = await request.send();
-  //     var respData = await res.stream.toBytes();
-  //     var respStr = String.fromCharCodes(respData);
-  //     var jsonObj = json.decode(respStr);
-  //     print(jsonObj["data"]["path"]);
-  //   } else {
-  //     print("No image picked");
-  //   }
-  // }
+      var res = await request.send();
+      var respData = await res.stream.toBytes();
+      var respStr = String.fromCharCodes(respData);
+      var jsonObj = json.decode(respStr);
+      print(jsonObj["data"]["path"]);
+    } else {
+      print("No image picked");
+    }
+  }
 
   // writeToken() {
   //   box.write('token', 'abcd');
