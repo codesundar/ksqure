@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:project_name/screens/bottom-nav-example.dart';
 import 'package:project_name/screens/cart-logics/products.dart';
 import 'package:project_name/screens/counter.dart';
+import 'package:project_name/screens/geo-location-example.dart';
 import 'package:project_name/screens/http-example.dart';
 import 'package:project_name/screens/login.dart';
 import 'package:project_name/screens/profile.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProductListScreen(),
+      home: GeolocationExample(),
     );
   }
 }
